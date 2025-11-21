@@ -19,8 +19,11 @@ http://localhost:8080/swagger-ui/index.html
 
 ## [설계 의도 및 기술 선택 이유]
 ### 1. Spring Security
-- AuthenticationManager, Filter, Provider 구조로 커스텀 인증 로직 구현
-- CustomAuthenticationFilter와 JwtFilter를 통한 로그인/토큰 검증 처리
+- 단순히 로그인 체크를 넘어 애플리케이션 보안 전반을 체계적으로 관리
+- 인증/인가 로직을 안전하게 처리
+- 반복되는 보안 코드를 줄이고, 실수로 인한 취약점 예방
+- JWT, OAuth, Redis 등 다양한 전략과 쉽게 연계 가능
+- 확장성과 유지보수성이 뛰어난 구조 제공
 
 ### 2. Access Token(헤더) + Refresh Token(HttpOnly Cookie) + Refresh Token 서버(Redis) 검증
 - Access Token이 JS 메모리에만 있으므로 CSRF 공격 방어
@@ -28,12 +31,14 @@ http://localhost:8080/swagger-ui/index.html
 - Refresh Token 서버 저장(RTR) → 탈취 후 즉시 무효화 가능
 - Access Token 갱신 시 요청 크기 최소화 → 성능 최고
 - 완벽한 stateless 는 아니지만, 필요한 부분만 stateful 해서 보안 강화
-- Access Token: 필요 시에만 Blacklist 설정 (Access Token 블랙리스트를 Redis에 넣고, TTL을 Access Token 만료시간과 동일하게 설정)
+- Access Token 만료 전 강제 로그아웃, 탈취 방지 등을 위해 블랙리스트 관리
 
 ### 3. Redis
-- 로그인/갱신 시 Refresh Token 저장
-- API 요청 횟수 제한 → DoS 공격 완화
-- TTL 기반 자동 만료 → DB 부하 최소화
+- 세션과 토큰 관리를 분산 환경에서도 안전하고 효율적으로 처리
+- 클러스터 환경에서 세션과 인증 상태 공유
+- JWT Refresh Token 관리 및 보안 강화
+- Access Token 블랙리스트 및 강제 로그아웃 처리
+- 높은 성능과 TTL 기반 자동 만료 기능 활용
 
 ### 4. JPA + QueryDSL
 - JPA는 객체 중심 개발을 가능하게 하고, 변경 감지·1차 캐시·지연 로딩 같은 성능 최적화 기능을 기본 제공하여 SQL 작성량을 줄임
