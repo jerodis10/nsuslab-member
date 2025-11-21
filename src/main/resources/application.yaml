@@ -1,3 +1,32 @@
+server:
+  port: 8080
+
 spring:
-  application:
-    name: member
+  redis:
+    host: localhost
+    port: 6379
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/demo?serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true
+    username: user
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+      properties:
+        hibernate:
+          default_batch_fetch_size: 1000
+          open-in-view: false
+
+jwt:
+  tokenPrefix: Bearer
+  tokenExpirationAfterDays: 7
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+
+
+
