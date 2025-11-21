@@ -28,11 +28,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .map(UserRole::grantedAuthorities)
                 .orElseThrow(() -> new IllegalStateException("Invalid role: " + member.getRole()));
 
-//        Set<SimpleGrantedAuthority> authority = null;
-//        for (UserRole role : UserRole.values()) {
-//            if(member.get().getRole().equals(role.name())) authority = role.grantedAuthorities();
-//        }
-
         return new UserDetailsImpl(
                 member.getLoginId(),
                 member.getPassword(),

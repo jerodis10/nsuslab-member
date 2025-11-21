@@ -1,6 +1,5 @@
 package com.nsuslab.member.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,8 +12,8 @@ import org.springframework.data.redis.core.ValueOperations;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.*;
-import static org.assertj.core.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class RedisServiceTest {
@@ -27,14 +26,6 @@ class RedisServiceTest {
 
     @Mock
     private ValueOperations<String, String> valueOps;
-
-//    @Mock
-//    private ValueOperations<String, String> ops;
-
-//    @BeforeEach
-//    void setUp() {
-//        given(redisTemplate.opsForValue()).willReturn(valueOps);
-//    }
 
     @Test
     @DisplayName("Refresh Token 저장 성공")

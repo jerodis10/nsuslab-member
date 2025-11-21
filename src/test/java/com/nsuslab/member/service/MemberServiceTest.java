@@ -1,16 +1,15 @@
 package com.nsuslab.member.service;
 
 import com.nsuslab.member.api.dto.response.MemberResponse;
+import com.nsuslab.member.entity.Member;
 import com.nsuslab.member.repository.MemberQueryRepository;
 import com.nsuslab.member.repository.MemberRepository;
-import com.nsuslab.member.entity.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
